@@ -87,8 +87,65 @@ describe('Flight generator test', function () {
 
     it('creates expected files', function (cb) {
       var expected = [
-        ['app/js/component/my_component.js', /function myComponent()/],
+        ['app/js/component/my_component.js', /function myComponent\(\)/],
         ['test/spec/component/my_component.spec.js', /describeComponent\('component\/my_component/]
+      ];
+
+      helpers.assertGeneratorMakesExpected(flightComponent, expected, cb);
+    });
+  });
+
+  describe('flight:component with capitalize', function () {
+    var flightComponent;
+
+    beforeEach(function (cb) {
+      var deps = ['../../lib/generators/component'];
+      flightComponent = helpers.createGenerator(
+        'flight:component',
+        deps,
+        ['my_component'],
+        {
+          capitalize: true
+        }
+      );
+      cb();
+    });
+
+    it('runs sucessfully', function () {
+      flightComponent.run();
+    });
+
+    it('creates expected files', function (cb) {
+      var expected = [
+        ['app/js/component/my_component.js', /function MyComponent\(\)/],
+        ['test/spec/component/my_component.spec.js', /describeComponent\('component\/my_component/]
+      ];
+
+      helpers.assertGeneratorMakesExpected(flightComponent, expected, cb);
+    });
+  });
+
+  describe('flight:component with path', function () {
+    var flightComponent;
+
+    beforeEach(function (cb) {
+      var deps = ['../../lib/generators/component'];
+      flightComponent = helpers.createGenerator(
+        'flight:component',
+        deps,
+        ['path/to/my_component']
+      );
+      cb();
+    });
+
+    it('runs sucessfully', function () {
+      flightComponent.run();
+    });
+
+    it('creates expected files', function (cb) {
+      var expected = [
+        ['app/js/component/path/to/my_component.js', /function myComponent\(\)/],
+        ['test/spec/component/path/to/my_component.spec.js', /describeComponent\('component\/path\/to\/my_component/]
       ];
 
       helpers.assertGeneratorMakesExpected(flightComponent, expected, cb);
@@ -110,8 +167,65 @@ describe('Flight generator test', function () {
 
     it('creates expected files', function (cb) {
       var expected = [
-        ['app/js/component/with_my_mixin.js', /function withMyMixin()/],
+        ['app/js/component/with_my_mixin.js', /function withMyMixin\(\)/],
         ['test/spec/component/with_my_mixin.spec.js', /describeMixin\('component\/with_my_mixin/]
+      ];
+
+      helpers.assertGeneratorMakesExpected(flightMixin, expected, cb);
+    });
+  });
+
+  describe('flight:mixin with capitalize', function () {
+    var flightMixin;
+
+    beforeEach(function (cb) {
+      var deps = ['../../lib/generators/mixin'];
+      flightMixin = helpers.createGenerator(
+        'flight:mixin',
+        deps,
+        ['my_mixin'],
+        {
+          capitalize: true
+        }
+      );
+      cb();
+    });
+
+    it('runs sucessfully', function () {
+      flightMixin.run();
+    });
+
+    it('creates expected files', function (cb) {
+      var expected = [
+        ['app/js/component/with_my_mixin.js', /function WithMyMixin\(\)/],
+        ['test/spec/component/with_my_mixin.spec.js', /describeMixin\('component\/with_my_mixin/]
+      ];
+
+      helpers.assertGeneratorMakesExpected(flightMixin, expected, cb);
+    });
+  });
+
+  describe('flight:mixin with path', function () {
+    var flightMixin;
+
+    beforeEach(function (cb) {
+      var deps = ['../../lib/generators/mixin'];
+      flightMixin = helpers.createGenerator(
+        'flight:mixin',
+        deps,
+        ['path/to/my_mixin']
+      );
+      cb();
+    });
+
+    it('runs sucessfully', function () {
+      flightMixin.run();
+    });
+
+    it('creates expected files', function (cb) {
+      var expected = [
+        ['app/js/component/path/to/with_my_mixin.js', /function withMyMixin\(\)/],
+        ['test/spec/component/path/to/with_my_mixin.spec.js', /describeMixin\('component\/path\/to\/with_my_mixin/]
       ];
 
       helpers.assertGeneratorMakesExpected(flightMixin, expected, cb);
